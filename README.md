@@ -46,8 +46,8 @@ belongs_to :prototype :user
 
 ## table
 - text :content
-integer :user_id
-integer :prototype_id
+- integer :user_id
+- integer :prototype_id
 - datetime :created_at
 - datetime :updated_at
 
