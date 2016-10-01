@@ -5,10 +5,12 @@ belongs_to :user
 has_many :comments :CapturedImages
 
 ## table
-string :title
-text :catch_copy
-text :concept
-integer :user_id
+- string :title
+- text :catch_copy
+- text :concept
+- integer :user_id
+- datetime :created_at
+- datetime :updated_at
 
 # User
 ---
@@ -16,13 +18,15 @@ integer :user_id
 has_many :prototypes :comments :likes
 
 ## table
-string :name
-string :email
-string :password
-string :member_of
-text :profile
-text :works
-text :image
+- string :name
+- string :email
+- string :password
+- string :member_of
+- text :profile
+- text :works
+- text :image
+- datetime :created_at
+- datetime :updated_at
 
 # CapturedImage
 ---
@@ -30,8 +34,10 @@ text :image
 belongs_to :prototype
 
 ## table
-text :image
-integer :prototype_id
+- text :image
+- integer :prototype_id
+- datetime :created_at
+- datetime :updated_at
 
 # Comment
 ---
@@ -39,9 +45,11 @@ integer :prototype_id
 belongs_to :prototype :user
 
 ## table
-text :content
+- text :content
 integer :user_id
 integer :prototype_id
+- datetime :created_at
+- datetime :updated_at
 
 # Like
 ---
@@ -49,5 +57,7 @@ integer :prototype_id
 belongs_to :prototype :user
 
 ## table
-user_id
-prototype_id
+- user_id
+- prototype_id
+- datetime :created_at
+- datetime :updated_at
