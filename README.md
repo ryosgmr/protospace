@@ -1,14 +1,14 @@
 # Prototype
 ---
 ## association
-belongs_to :user
+belongs_to :user  
 has_many :comments :CapturedImages
 
 ## table
 - string :title
 - text :catch_copy
 - text :concept
-- integer :user_id
+- references :user
 - datetime :created_at
 - datetime :updated_at
 
@@ -35,7 +35,7 @@ belongs_to :prototype
 
 ## table
 - text :image
-- integer :prototype_id
+- references :prototype
 - datetime :created_at
 - datetime :updated_at
 
@@ -46,8 +46,8 @@ belongs_to :prototype :user
 
 ## table
 - text :content
-- integer :user_id
-- integer :prototype_id
+- references :user
+- references :prototype
 - datetime :created_at
 - datetime :updated_at
 
@@ -57,7 +57,7 @@ belongs_to :prototype :user
 belongs_to :prototype :user
 
 ## table
-- user_id
-- prototype_id
+- references :user
+- references :prototype
 - datetime :created_at
 - datetime :updated_at
