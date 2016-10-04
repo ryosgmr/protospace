@@ -6,11 +6,12 @@
       = f.email_field :email, autofocus: "", class: "form-control", placeholder: "Email address", required: "", id: "inputEmail"
       %label.sr-only{for: "inputPassword"} Password
       = f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "Password", required: "", id: "inputPassword"
-      .checkbox
-        %label
-          = f.check_box :remember_me
-          Remember me
-      = f.submit "Sign in", class: "btn btn-lg btn-primary btn-block"
+      - if devise_mapping.rememberable?
+        .checkbox
+          %label
+            = f.check_box :remember_me
+            Remember me
+        = f.submit "Sign in", class: "btn btn-lg btn-primary btn-block"
   .text-center
     %p
       Not a member?
