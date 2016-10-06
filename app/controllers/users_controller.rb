@@ -8,7 +8,7 @@ class UsersController < ApplicationController
 
   def update
     current_user.update(update_params)
-    sign_in(current_user, bypass: true)
+    bypass_sign_in(current_user)
     redirect_to root_url
   end
 
