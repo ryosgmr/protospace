@@ -1,6 +1,9 @@
 class UsersController < ApplicationController
 
+  before_action :move_to_root, only: :edit
+
   def show
+    @user = User.find(params[:id])
   end
 
   def edit
@@ -15,6 +18,10 @@ class UsersController < ApplicationController
   private
   def update_params
     params.require(:user).permit(:name, :email, :member_of, :profile, :works, :password)
+  end
+
+  def move_to_root
+    redirect_to root_path unless user_signed_in?
   end
 
 end
