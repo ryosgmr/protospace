@@ -10,9 +10,15 @@ class UsersController < ApplicationController
   end
 
   def update
-    current_user.update(update_params)
-    bypass_sign_in(current_user)
-    redirect_to root_url
+    @user = User.find(current_user)
+    result = @user.update(update_params)
+    if result == true
+      bypass_sign_in(@user)
+      redirect_to root_url, success: "プロフィールを更新しました！"
+    else
+      flash.now[:danger] = "プロフィールの更新に失敗しました！入力内容を確認してください。"
+      render :edit
+    end
   end
 
   private
