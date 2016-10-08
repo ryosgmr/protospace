@@ -14,7 +14,8 @@ class UsersController < ApplicationController
     result = @user.update(update_params)
     if result == true
       bypass_sign_in(@user)
-      redirect_to root_url, success: "プロフィールを更新しました！"
+      flash[:success] = "プロフィールを更新しました！"
+      redirect_to root_url
     else
       flash.now[:danger] = "プロフィールの更新に失敗しました！入力内容を確認してください。"
       render :edit
