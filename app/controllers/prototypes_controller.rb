@@ -1,24 +1,23 @@
 class PrototypesController < ApplicationController
+  before_action :move_to_root, only:[:new, :create]
 
   def index
   end
 
   def new
     @prototype = Prototype.new
-    4.times {@prototype.captured_images.build}
+    @prototype.captured_images.build
   end
 
   def create
-
-    result = Prototype.create(create_params)
-    binding.pry
-    #if result == true
+    @prototype = Prototype.new(create_params)
+    if @prototype.save
       flash[:success] = "プロトタイプを投稿しました！"
       redirect_to root_url
-    #else
-    #  flash.now[:danger] = "プロトタイプの投稿に失敗しました！内容を確認してください。"
-    #  render :new
-    #end
+    else
+      flash.now[:danger] = "プロトタイプの投稿に失敗しました！内容を確認してください。"
+      render :new
+    end
   end
 
   def show
@@ -26,12 +25,16 @@ class PrototypesController < ApplicationController
 
   private
   def create_params
-    # params.require(:prototype).permit(thumbnails_attributes: [:image])
     params.require(:prototype).permit(
       :title,
       :catch_copy,
       :concept,
+      :user_id,
       captured_images_attributes: [:image])
+  end
+
+  def move_to_root
+    redirect_to root_path unless user_signed_in?
   end
 
 end
