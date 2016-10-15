@@ -21,7 +21,7 @@
             %p #{@user.works}
 .container.proto-list
   .row
-    - @prototypes.each do |p|
+    - @user.prototypes.each do |p|
       .col-sm-4.col-md-3.proto-content
         .thumbnail
           = link_to image_tag(p.captured_images.find_by(position: "main").image_url), prototype_path(p)
