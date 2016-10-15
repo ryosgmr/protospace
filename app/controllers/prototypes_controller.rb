@@ -34,7 +34,6 @@ class PrototypesController < ApplicationController
       :concept,
       :user_id,
       captured_images_attributes: [:image, :position])
-      binding.pry
   end
 
   def move_to_root
