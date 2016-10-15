@@ -24,7 +24,8 @@ class UsersController < ApplicationController
 
   private
   def update_params
-    params.require(:user).permit(:name, :email, :member_of, :profile, :works, :password)
+    binding.pry
+    params.require(:user).permit(:name, :email, :member_of, :profile, :works, :password, :avatar)
   end
 
   def move_to_root
