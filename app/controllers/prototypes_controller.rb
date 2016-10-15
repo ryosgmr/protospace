@@ -2,6 +2,7 @@ class PrototypesController < ApplicationController
   before_action :move_to_root, only:[:new, :create]
 
   def index
+    @prototypes = Prototype.all
   end
 
   def new
@@ -21,6 +22,8 @@ class PrototypesController < ApplicationController
   end
 
   def show
+    @prototype = Prototype.find(params[:id])
+    @user = @prototype.user
   end
 
   private
@@ -31,6 +34,7 @@ class PrototypesController < ApplicationController
       :concept,
       :user_id,
       captured_images_attributes: [:image, :position])
+      binding.pry
   end
 
   def move_to_root
