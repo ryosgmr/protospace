@@ -30,7 +30,7 @@ class PrototypesController < ApplicationController
       :catch_copy,
       :concept,
       :user_id,
-      captured_images_attributes: [:image])
+      captured_images_attributes: [:image, :position])
   end
 
   def move_to_root
