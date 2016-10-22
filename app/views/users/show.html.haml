@@ -23,6 +23,13 @@
   .row
     - @user.prototypes.each do |p|
       .col-sm-4.col-md-3.proto-content
+        .dropdown.drop_menu_location
+          %button.btn.btn-default.dropdown-toggle{"aria-expanded": "false", "data-toggle": "dropdown", id: "dropdownMenu", type: "button"}Action
+          %ul.dropdown-menu{"aria-labelledby": "dropdownMenu1"}
+            %li
+              = link_to "Edit", edit_prototype_path(p)
+            %li
+              = link_to "Delete", prototype_path(p), method: :delete
         .thumbnail
           = link_to image_tag(p.captured_images.find_by(position: "main").image_url), prototype_path(p)
           .caption
