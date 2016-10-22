@@ -26,6 +26,23 @@ class PrototypesController < ApplicationController
     @user = @prototype.user
   end
 
+  def edit
+  end
+
+  def update
+  end
+
+  def destroy
+    prototype = Prototype.find(params[:id])
+    if prototype.destroy
+      flash[:success] = "プロトタイプを削除しました！"
+      redirect_to root_url
+    else
+      flash.now[:danger] = "プロトタイプの削除に失敗しました。"
+      redirect_to root_url
+    end
+  end
+
   private
   def create_params
     params.require(:prototype).permit(
@@ -33,7 +50,7 @@ class PrototypesController < ApplicationController
       :catch_copy,
       :concept,
       :user_id,
-      captured_images_attributes: [:image, :position])
+      captured_images_attributes: [:id, :image, :position])
   end
 
   def move_to_root
