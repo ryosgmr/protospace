@@ -1,5 +1,6 @@
 class PrototypesController < ApplicationController
   before_action :move_to_root, only:[:new, :create]
+  before_action :set_prototype, only:[:show, :edit, :update, :destroy]
 
   def index
     @prototypes = Prototype.all
@@ -22,16 +23,13 @@ class PrototypesController < ApplicationController
   end
 
   def show
-    @prototype = Prototype.find(params[:id])
     @user = @prototype.user
   end
 
   def edit
-    @prototype = Prototype.find(params[:id])
   end
 
   def update
-    @prototype = Prototype.find(params[:id])
     if @prototype.update(prototype_params)
       flash[:success] = "プロトタイプを更新しました！"
       redirect_to root_url
@@ -42,8 +40,7 @@ class PrototypesController < ApplicationController
   end
 
   def destroy
-    prototype = Prototype.find(params[:id])
-    if prototype.destroy
+    if @prototype.destroy
       flash[:success] = "プロトタイプを削除しました！"
       redirect_to root_url
     else
@@ -60,6 +57,10 @@ class PrototypesController < ApplicationController
       :concept,
       :user_id,
       captured_images_attributes: [:id, :image, :position])
+  end
+
+  def set_prototype
+    @prototype = Prototype.find(params[:id])
   end
 
   def move_to_root
