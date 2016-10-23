@@ -11,7 +11,7 @@ class PrototypesController < ApplicationController
   end
 
   def create
-    @prototype = Prototype.new(create_params)
+    @prototype = Prototype.new(prototype_params)
     if @prototype.save
       flash[:success] = "プロトタイプを投稿しました！"
       redirect_to root_url
@@ -27,9 +27,18 @@ class PrototypesController < ApplicationController
   end
 
   def edit
+    @prototype = Prototype.find(params[:id])
   end
 
   def update
+    @prototype = Prototype.find(params[:id])
+    if @prototype.update(prototype_params)
+      flash[:success] = "プロトタイプを更新しました！"
+      redirect_to root_url
+    else
+      flash.now[:danger] = "プロトタイプの更新に失敗しました！入力内容を確認してください。"
+      render :edit
+    end
   end
 
   def destroy
@@ -44,7 +53,7 @@ class PrototypesController < ApplicationController
   end
 
   private
-  def create_params
+  def prototype_params
     params.require(:prototype).permit(
       :title,
       :catch_copy,
