@@ -1,5 +1,6 @@
 class PrototypesController < ApplicationController
   before_action :move_to_root, only:[:new, :create]
+  before_action :set_prototype, except:[:index, :new, :create]
 
   def index
     @prototypes = Prototype.all
@@ -11,7 +12,7 @@ class PrototypesController < ApplicationController
   end
 
   def create
-    @prototype = Prototype.new(create_params)
+    @prototype = Prototype.new(prototype_params)
     if @prototype.save
       flash[:success] = "プロトタイプを投稿しました！"
       redirect_to root_url
@@ -22,18 +23,44 @@ class PrototypesController < ApplicationController
   end
 
   def show
-    @prototype = Prototype.find(params[:id])
     @user = @prototype.user
   end
 
+  def edit
+  end
+
+  def update
+    if @prototype.update(prototype_params)
+      flash[:success] = "プロトタイプを更新しました！"
+      redirect_to root_url
+    else
+      flash.now[:danger] = "プロトタイプの更新に失敗しました！入力内容を確認してください。"
+      render :edit
+    end
+  end
+
+  def destroy
+    if @prototype.destroy
+      flash[:success] = "プロトタイプを削除しました！"
+      redirect_to root_url
+    else
+      flash.now[:danger] = "プロトタイプの削除に失敗しました。"
+      redirect_to root_url
+    end
+  end
+
   private
-  def create_params
+  def prototype_params
     params.require(:prototype).permit(
       :title,
       :catch_copy,
       :concept,
       :user_id,
-      captured_images_attributes: [:image, :position])
+      captured_images_attributes: [:id, :image, :position])
+  end
+
+  def set_prototype
+    @prototype = Prototype.find(params[:id])
   end
 
   def move_to_root

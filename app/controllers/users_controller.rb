@@ -24,7 +24,6 @@ class UsersController < ApplicationController
 
   private
   def update_params
-    binding.pry
     params.require(:user).permit(:name, :email, :member_of, :profile, :works, :password, :avatar)
   end
 
